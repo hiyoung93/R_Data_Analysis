@@ -79,7 +79,7 @@ data2
 ##이거 이해안됨 물어보기
 fruits6 <- read.delim('clipboard',header = T)
 fruits6
-
+#############
 install.packages('readxl')
 library(readxl)
 # importing excel file by using read_excel() function
@@ -90,4 +90,12 @@ fruits7 <- read_excel('fruits_6.xls',sheet = , # sheet name to read from
                            col_names = TRUE, # TRUE to use the first row as column names
                            col_types = "guess", # guess the types of columns
                            na = "NA") # Character vector of strings to use for missing values
+################
+
+
+
+
+
+
+
 
