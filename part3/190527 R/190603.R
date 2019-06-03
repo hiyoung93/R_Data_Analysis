@@ -19,3 +19,64 @@ data3
 data4 <- filter(data1,포지션%in%c('1루수','3루수'))
 data4
 select(data1,선수명, 포지션, 팀)
+select(data1,순위:타수)
+select(data1,-타율:-연봉)
+data1 %>%
+  select(선수명,팀,경기,타수) %>%
+  mutate(경기x타수 = 경기*타수)%>%
+  arrange(경기x타수)
+# 
+# data1 %>%
+#   select(선수명,팀,경기,타수) %>%
+#   mutate(경기x타수 = 경기*타수)%>%
+#  arrange를 빼면 결과값이 안나온다.
+
+data1 %>%
+  group_by(팀) %>%
+  summarise(avarage =mean(경기,na.rm = TRUE))
+  
+data1 %>%
+  group_by(팀) %>%
+  summarise_each(funs(mean,sum,n()),연봉,타수)
+
+# #dplyr데이터 전처리
+# 기초통계량,간단집계 - summarise()
+# 새로운 데이터프레임에 새로운 열 추가 - mutate()
+# 두 개 이상의 변수에 대한 처리 - summarise_at(),mutate_at()
+# 첫번째 인자에 대상이 되는 변수 나열,구하고 싶은 함수 - funs()
+
+#연습문제
+install.packages('googleVis')
+library(googleVis)
+library(dplyr) #끌어 내려오면 값을 간단하게 만드는 함수
+attach(Fruits)
+
+Fruits
+
+f1<- filter(Fruits,Expenses>80) ;f1
+
+Fruits2 %>%
+  filter(Expenses>90) %>%
+  arrange(Sales)#2번
+
+Fruits3 <-  filter(Fruits,Expenses > 90); Fruits#3?
+
+Fruits4 <- filter(Fruits,Expenses%in%c('79','91'));Fruits#4번
+
+
+
+# Fruits %>%
+#   summarise_at(funs(Expenses>90,sales>90)) #2번
+
+
+#P.412 답
+######
+Fruits %>%
+  group_by(Fruit) %>%
+  mutate(sumSales = sum(Sales))
+
+
+
+
+
+###########

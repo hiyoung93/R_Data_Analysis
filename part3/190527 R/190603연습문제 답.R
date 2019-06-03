@@ -1,4 +1,5 @@
-#값자체가 안나오...아앙..
+#문제 다시 풀어보기!
+#내일도 일찍 나오기!
 install.packages("ggplot2")
 install.packages("dplyr")
 library(ggplot2)
@@ -19,10 +20,12 @@ mean(mpg_a$cty); mean(mpg_t$cty)
 
 mpg %>%
   filter(manufacturer %in% c('audi', 'toyota')) %>%
-  group_by(manufacturer) %>%
-  summarise(average = mean(cty))
+  group_by(manufacturer) %>% 
+  summarise(고속도로연비평균 = mean(cty)) #많이 사용함, 
 
-#3
+
+# #3
+# 각각의 고속도로 연비평
 mpg %>%
   filter(manufacturer %in% c('chevrolet', 'ford', 'honda')) %>%
   summarise(average = mean(hwy))
