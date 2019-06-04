@@ -53,15 +53,19 @@ attach(Fruits)
 
 Fruits
 
-f1<- filter(Fruits,Expenses>80) ;f1
+f1<- filter(Fruits,Expenses>80) ;f1 #1번
 
-Fruits2 %>%
+Fruits %>%
   filter(Expenses>90) %>%
   arrange(Sales)#2번
 
-Fruits3 <-  filter(Fruits,Expenses > 90); Fruits#3?
+F3 %>%
+  
+  filter(Expenses > 90)%>%
+  arrange(Sales)#3번
 
-Fruits4 <- filter(Fruits,Expenses%in%c('79','91'));Fruits#4번
+
+F4 <- filter(Fruits,Expenses%in%c('79','91'));F4#4번
 
 
 
