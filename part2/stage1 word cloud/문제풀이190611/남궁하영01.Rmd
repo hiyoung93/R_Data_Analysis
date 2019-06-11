@@ -1,0 +1,104 @@
+
+```{r}
+library(rJava)
+library(KoNLP)
+library(wordcloud)
+library(RColorBrewer)
+library(stringr)
+
+useSejongDic()
+```
+
+#### 파일 읽기
+- 전체파일을 읽는 준비과정이 필요할 것 같았다.
+```{r}
+
+#### 파일 읽기
+answer1 <- readLines('응답소_2015_01.txt') 
+answer2<- readLines('응답소_2015_02.txt') 
+answer3 <- readLines('응답소_2015_03.txt')
+answer4 <- readLines('응답소_2015_04.txt') 
+answer5 <- readLines('응답소_2015_05.txt') 
+answer6 <- readLines('응답소_2015_06.txt') 
+answer7 <- readLines('응답소_2015_07.txt') 
+answer8 <- readLines('응답소_2015_08.txt') 
+answer9 <- readLines('응답소_2015_09.txt') 
+answer10 <- readLines('응답소_2015_10.txt') 
+answer11 <- readLines('응답소_2015_11.txt') 
+answer12 <- readLines('응답소_2015_12.txt') 
+```
+#### 읽은 파일 라인마다 명사단어들만 남기기
+- 전체적으로 명사단어를 먼저 남겨야 할 것 같았따.
+```{r}
+answerN1 <- sapply(answer1, extractNoun, USE.NAMES=F)
+answerN2 <- sapply(answer2, extractNoun, USE.NAMES=F)
+answerN3 <- sapply(answer3, extractNoun, USE.NAMES=F) 
+answerN4 <- sapply(answer4, extractNoun, USE.NAMES=F) 
+answerN5 <- sapply(answer5, extractNoun, USE.NAMES=F)
+answerN6 <- sapply(answer6, extractNoun, USE.NAMES=F)
+answerN7 <- sapply(answer7, extractNoun, USE.NAMES=F)
+answerN8 <- sapply(answer8, extractNoun, USE.NAMES=F) 
+answerN9 <- sapply(answer9, extractNoun, USE.NAMES=F)
+answerN10 <- sapply(answer10, extractNoun, USE.NAMES=F)
+answerN11 <- sapply(answer11, extractNoun, USE.NAMES=F) 
+answerN12 <- sapply(answer12, extractNoun, USE.NAMES=F) 
+```
+
+
+
+
+####명사만 단어만 가지고 오기(정리한 파일 하나로 묶기)
+```{r}
+
+answerall <- {answer1L<- unlist(answerN1);
+  answerL2<- unlist(answerN2);
+  answerL3<- unlist(answerN3);
+  answerL4<- unlist(answerN4);
+  answerL5<- unlist(answerN5);
+  answerL6<- unlist(answerN6);
+  answerL7<- unlist(answerN7); 
+  answerL8<- unlist(answerN8);
+  answerL9<- unlist(answerN9);
+  answerL10<- unlist(answerN10);
+  answerL11<- unlist(answerN11);
+  answerL12<- unlist(answerN12)}
+
+```
+
+
+#### 2자 이상의 단어만 가지고 오기
+```{r}
+answer <- Filter(function(x) {
+  nchar(x)>=2
+},answerall)
+```
+
+#### 필요없는거 지우기
+```{r}
+
+rm <- unlist(answer)
+answer <- str_replace_all(rm,"[^[:alpha:]]","")#특수문자 지우기
+answerall <- gsub('\\d+','',answer)#숫자지우기
+str(answer)
+txt <- readLines("gsub01.txt");txt#따로 메모장에 있는 문자지우기
+for(i in 1:length(txt)){
+  answer <- gsub((txt[i]),'',answer)
+}
+
+answer <- unlist(answer)
+head(sort(answer, decreasing=T),30)
+
+```
+#### 파일저장
+```{r}
+set.seed(1234)
+write(unlist(answer), '응답하라1501') 
+answerT <- read.table('응답하라1501')
+nrow(answerT)
+answer <- table(answerT)
+head(sort(answer, decreasing=T),20)
+
+palete <- brewer.pal(11, "Set1")
+wordcloud(names(answer), freq=answer, scale = c(2.5,0.3), rot.per =F, min.freq = 2,
+          random.color = T, random.order = F, colors=palete)
+```
