@@ -147,5 +147,3 @@ ggplot(dis,aes(x=년도별,y=장티푸스,group=1))+
   geom_area(fill='cyan',alpha=0.4)+
   geom_line(color='blue')
 
-
-https://www.r-graph-gallery.com/all-graphs/
