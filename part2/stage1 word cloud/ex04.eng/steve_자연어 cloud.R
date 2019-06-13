@@ -37,6 +37,7 @@ head(freq1,20)
 freq2 <- sort(rowSums(m2),decreasing = T)
 head(freq2,20)
 findFreqTerms(tdm2,2)
+#단어 빈도수 높이는 함수
 findAssocs(tdm2,'love',0.5)
 findAssocs(tdm2,'story',0.6)
 
