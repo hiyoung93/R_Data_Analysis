@@ -5,11 +5,14 @@ data1 <- read.csv('마포09번이용현황.csv')
 str(data1)
 
 
-ggplot(data1,aes(x=하차인원, y=하차인원))+geom_line(color='blue', aes(x=하차인원, y=하차인원))
 
 ggplot(bus09, aes(x=정류소명)) +
   geom_point(color='orange', aes(x=number, y=승차인원)) +
-  geom_line(color='orange', aes(x=number, y=승차인원)) 
+  geom_line(color='orange', aes(x=number, y=승차인원)) +
+  labels = c(승차인원)
+  geom_point(color='blue', aes(x=number, y=하차인원)) +
+  geom_line(color='blue', aes(x=number, y=하차인원)) +
+  labels = c(하차인원) 
 
   # geom_bar(stat='identity')+
   # geom_text(aes(x=승차인원, y='',label=v1*10, group=표시과목,family = 'NanumGothic'))+ #familly는 데이터안에 들어가는 글씨

@@ -60,7 +60,6 @@ Fruits %>%
   arrange(Sales)#2번
 
 F3 %>%
-  
   filter(Expenses > 90)%>%
   arrange(Sales)#3번
 
